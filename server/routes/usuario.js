@@ -19,7 +19,7 @@ app.get('/usuario', verificaToken, function (req, res) {
            .limit(limite)
            .exec((err, usuarios) => {
                 if(err) {
-                    return res.status(400).json({
+                    return res.status(500).json({
                         ok: false,
                         err
                     });
@@ -68,7 +68,7 @@ app.put('/usuario/:id', [verificaToken, verificaAdminRole], function (req, res) 
     //_.pick es paracido
     //Opcion para filtrar los parametros no deseados de mi body
     //delete body.password;
-    //delete body.google;
+    //delete body.google;              //Para que las validaciones no choquen
     Usuario.findByIdAndUpdate(id, body, { new: true, runValidators: true }, (err, usuarioDB) => {
         if(err) {
             return res.status(400).json({
